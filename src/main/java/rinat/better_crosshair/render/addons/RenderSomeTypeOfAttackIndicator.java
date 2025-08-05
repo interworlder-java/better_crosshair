@@ -1,4 +1,4 @@
-package rinat.better_crosshair.render;
+package rinat.better_crosshair.render.addons;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -15,7 +15,7 @@ public class RenderSomeTypeOfAttackIndicator {
         int centerX = screenWidth / 2;
         int centerY = screenHeight / 2;
 
-        if (Config.getConfigData().use_attack_indicator) {
+        if (!Config.getConfigData().use_attack_indicator) {
             int color;
 
             if (Config.getConfigData().crosshair_rainbow) {
@@ -54,9 +54,9 @@ public class RenderSomeTypeOfAttackIndicator {
                         centerX + ((float) width / 2), centerY + (gap + (2 * size)) - animation,
                         color, matrices, vertexConsumers);
             }
-
-            matrices.pop();
         } else {
+            matrices.pop();
+
             RenderAttackIndicator.renderAttackIndicator(client, drawContext);
         }
     }

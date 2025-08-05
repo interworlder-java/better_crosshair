@@ -5,6 +5,7 @@
   "config.better_crosshair.category.color": "Colors",
   "config.better_crosshair.category.size": "Sizes",
   "config.better_crosshair.category.fun": "Fun",
+  "config.better_crosshair.category.dot": "Dot Settings",
 
   "config.better_crosshair.enable": "Enable",
 
@@ -20,5 +21,8 @@
   "config.better_crosshair.crosshair_rotation": "Crosshair rotation",
   "config.better_crosshair.crosshair_color": "Crosshair color",
   "config.better_crosshair.use_rainbow_colors": "Use Rainbow",
-  "config.better_crosshair.rainbow_colors_speed": "Rainbow Speed"
+  "config.better_crosshair.rainbow_colors_speed": "Rainbow Speed",
+  "config.better_crosshair.dot_enabled": "Enable Dot",
+  "config.better_crosshair.dot_radius": "Dot Size",
+  "config.better_crosshair.dot_color": "Dot Color"
 }

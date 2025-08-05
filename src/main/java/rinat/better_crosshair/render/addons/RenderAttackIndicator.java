@@ -1,4 +1,4 @@
-package rinat.better_crosshair.render;
+package rinat.better_crosshair.render.addons;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -7,6 +7,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.option.AttackIndicator;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
+import rinat.better_crosshair.config.Config;
 
 public class RenderAttackIndicator {
     public static void renderAttackIndicator(MinecraftClient client, DrawContext context) {
@@ -34,7 +35,7 @@ public class RenderAttackIndicator {
         }
 
         int x = context.getScaledWindowWidth() / 2 - 8;
-        int y = context.getScaledWindowHeight() / 2 + 9; // Below crosshair
+        int y = context.getScaledWindowHeight() / 2 + Config.getConfigData().from_center_to_ai; // Below crosshair
 
         if (showFull) {
             context.drawGuiTexture(CROSSHAIR_ATTACK_INDICATOR_FULL_TEXTURE, x, y, 16, 16);

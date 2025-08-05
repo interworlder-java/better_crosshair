@@ -1,4 +1,4 @@
-package rinat.better_crosshair.render;
+package rinat.better_crosshair.render.addons;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -7,7 +7,6 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.option.AttackIndicator;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.render.Camera;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.screen.NamedScreenHandlerFactory;
@@ -46,8 +45,8 @@ public class RenderStandardCrosshair {
                 matrix4fStack.pushMatrix();
                 matrix4fStack.mul(context.getMatrices().peek().getPositionMatrix());
                 matrix4fStack.translate(context.getScaledWindowWidth() / 2, context.getScaledWindowHeight() / 2, 0.0f);
-                matrix4fStack.rotateX(-camera.getPitch() * ((float)Math.PI / 180));
-                matrix4fStack.rotateY(camera.getYaw() * ((float)Math.PI / 180));
+                matrix4fStack.rotateX(-camera.getPitch() * ((float) Math.PI / 180));
+                matrix4fStack.rotateY(camera.getYaw() * ((float) Math.PI / 180));
                 matrix4fStack.scale(-1.0f, -1.0f, -1.0f);
                 RenderSystem.applyModelViewMatrix();
                 RenderSystem.renderCrosshair(10);
@@ -69,7 +68,7 @@ public class RenderStandardCrosshair {
                     if (bl) {
                         context.drawGuiTexture(CROSSHAIR_ATTACK_INDICATOR_FULL_TEXTURE, k, j, 16, 16);
                     } else if (f < 1.0f) {
-                        int l = (int)(f * 17.0f);
+                        int l = (int) (f * 17.0f);
                         context.drawGuiTexture(CROSSHAIR_ATTACK_INDICATOR_BACKGROUND_TEXTURE, k, j, 16, 4);
                         context.drawGuiTexture(CROSSHAIR_ATTACK_INDICATOR_PROGRESS_TEXTURE, 16, 4, 0, 0, k, j, l, 4);
                     }
@@ -80,7 +79,7 @@ public class RenderStandardCrosshair {
         }
     }
 
-    public static boolean shouldRenderSpectatorCrosshair(@Nullable HitResult hitResult) {
+    private static boolean shouldRenderSpectatorCrosshair(HitResult hitResult) {
         if (hitResult == null) {
             return false;
         }
