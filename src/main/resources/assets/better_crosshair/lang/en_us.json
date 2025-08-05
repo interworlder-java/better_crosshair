@@ -1,0 +1,24 @@
+{
+  "screen.better_crosshair.config.title": "Better Crosshair Settings",
+
+  "config.better_crosshair.category.general": "General",
+  "config.better_crosshair.category.color": "Colors",
+  "config.better_crosshair.category.size": "Sizes",
+  "config.better_crosshair.category.fun": "Fun",
+
+  "config.better_crosshair.enable": "Enable",
+
+  "config.better_crosshair.use_cross_crosshair": "Use Cross as Crosshair",
+  "config.better_crosshair.spin_crosshair": "Spin Crosshair",
+  "config.better_crosshair.use_item_as_crosshair": "Use Item as Crosshair",
+  "config.better_crosshair.choose_item": "Choose Item as Crosshair",
+  "config.better_crosshair.use_attack_indicator": "Use attack indicator",
+  "config.better_crosshair.from_center_to_attack_indicator": "Distance from center to attack indicator",
+  "config.better_crosshair.crosshair_size": "Crosshair size",
+  "config.better_crosshair.crosshair_gap": "Crosshair gap",
+  "config.better_crosshair.crosshair_width": "Crosshair width",
+  "config.better_crosshair.crosshair_rotation": "Crosshair rotation",
+  "config.better_crosshair.crosshair_color": "Crosshair color",
+  "config.better_crosshair.use_rainbow_colors": "Use Rainbow",
+  "config.better_crosshair.rainbow_colors_speed": "Rainbow Speed"
+}

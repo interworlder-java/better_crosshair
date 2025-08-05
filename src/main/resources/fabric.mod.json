@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "better_crosshair",
+  "version": "${version}",
+  "name": "better crosshair",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "unlicense",
+  "icon": "assets/better_crosshair/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "rinat.better_crosshair.client.BetterCrosshairClient"
+    ],
+    "main": [
+      "rinat.better_crosshair.BetterCrosshair"
+    ],
+    "modmenu": [
+      "rinat.better_crosshair.config.ModMenuConfiguration"
+    ]
+  },
+  "mixins": [
+    "better_crosshair.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
