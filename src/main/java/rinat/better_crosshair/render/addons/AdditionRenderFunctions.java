@@ -1,8 +1,11 @@
-package rinat.better_crosshair.render;
+package rinat.better_crosshair.render.addons;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gl.ShaderProgramKeys;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.math.RotationAxis;
 import org.joml.Matrix4f;
 import rinat.better_crosshair.config.Config;
 
@@ -53,13 +56,37 @@ public class AdditionRenderFunctions {
         RenderSystem.disableCull();
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
-        RenderSystem.setShader(GameRenderer::getPositionColorProgram);
+        RenderSystem.setShader(ShaderProgramKeys.POSITION_COLOR);
         RenderSystem.setShaderColor(1, 1, 1, 1);
 
         BufferRenderer.drawWithGlobalProgram(buf.end());
 
-        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
+        RenderSystem.setShader(ShaderProgramKeys.POSITION_TEX_COLOR);
         RenderSystem.enableCull();
         RenderSystem.disableBlend();
+    }
+
+    public static void rotateCrosshair(MinecraftClient client, MatrixStack matrices) {
+        int centerY = client.getWindow().getScaledHeight() / 2;
+        int centerX = client.getWindow().getScaledWidth() / 2;
+
+        int rotation = Config.getConfigData().crosshair_rotation;
+
+        matrices.translate(centerX, centerY, 5);
+        matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(rotation));
+        matrices.translate(-centerX, -centerY, 5);
+    }
+    public static void spinCrosshair(MinecraftClient client, MatrixStack matrices) {
+        int centerY = client.getWindow().getScaledHeight() / 2;
+        int centerX = client.getWindow().getScaledWidth() / 2;
+
+        long time = System.currentTimeMillis();
+        float angle = (time % 3600) / 10.0f; // cycles every 36 seconds
+
+        if (Config.getConfigData().spin_crosshair) {
+            matrices.translate(centerX, centerY, 5);
+            matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(angle));
+            matrices.translate(-centerX, -centerY, 5);
+        }
     }
 }

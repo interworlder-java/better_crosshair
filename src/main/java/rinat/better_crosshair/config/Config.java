@@ -53,9 +53,38 @@ public class Config {
         ConfigCategory general = builder.getOrCreateCategory(Text.translatable("config.better_crosshair.category.general"));
         ConfigCategory color = builder.getOrCreateCategory(Text.translatable("config.better_crosshair.category.color"));
         ConfigCategory size = builder.getOrCreateCategory(Text.translatable("config.better_crosshair.category.size"));
+        ConfigCategory dot = builder.getOrCreateCategory(Text.translatable("config.better_crosshair.category.dot"));
         ConfigCategory fun = builder.getOrCreateCategory(Text.translatable("config.better_crosshair.category.fun"));
 
         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
+
+        dot.addEntry(entryBuilder.startBooleanToggle(
+                        Text.translatable("config.better_crosshair.dot_enabled"),
+                        config_data.dot_enable
+                    )
+                    .setDefaultValue(false)
+                    .setSaveConsumer(newValue -> config_data.dot_enable = newValue)
+                    .build()
+        );
+
+        dot.addEntry(entryBuilder.startIntSlider(
+                        Text.translatable("config.better_crosshair.dot_radius"),
+                        config_data.dot_radius,
+                        1, 30
+                    )
+                .setDefaultValue(8)
+                .setSaveConsumer(newValue -> config_data.dot_radius = newValue)
+                .build()
+        );
+
+        dot.addEntry(entryBuilder.startAlphaColorField(
+                            Text.translatable("config.better_crosshair.dot_color"),
+                            config_data.dot_color
+                    )
+                    .setDefaultValue(-1)
+                    .setSaveConsumer(newValue -> config_data.dot_color = newValue)
+                    .build()
+        );
 
         general.addEntry(entryBuilder.startBooleanToggle(
                                 Text.translatable("config.better_crosshair.enable"),
@@ -67,12 +96,12 @@ public class Config {
         );
 
         fun.addEntry(entryBuilder.startBooleanToggle(
-                                Text.translatable("config.better_crosshair.use_cross_crosshair"),
-                                config_data.use_standard_crosshair
-                        )
-                        .setDefaultValue(false)
-                        .setSaveConsumer(newValue -> config_data.use_standard_crosshair = newValue)
-                        .build()
+                            Text.translatable("config.better_crosshair.use_cross_crosshair"),
+                            config_data.use_standard_crosshair
+                    )
+                    .setDefaultValue(false)
+                    .setSaveConsumer(newValue -> config_data.use_standard_crosshair = newValue)
+                    .build()
         );
 
         fun.addEntry(entryBuilder.startBooleanToggle(
@@ -97,7 +126,7 @@ public class Config {
                             Text.translatable("config.better_crosshair.choose_item"),
                             config_data.choosen_item
                         )
-                        .setDefaultValue("minecraft:potato")
+                        .setDefaultValue("potato")
                         .setSaveConsumer(newValue -> config_data.choosen_item = newValue)
                         .build()
         );
@@ -210,6 +239,9 @@ public class Config {
         public boolean use_item_as_crosshair;
         public boolean use_attack_indicator;
         public boolean crosshair_rainbow;
+        public boolean dot_enable;
+        public int dot_color;
+        public int dot_radius;
 
         public String choosen_item;
 
@@ -219,10 +251,11 @@ public class Config {
                           int crosshair_color,
                           boolean use_standard_crosshair, boolean spin_crosshair,
                           boolean use_item_as_crosshair, boolean crosshair_rainbow,
-                          boolean use_attack_indicator,
+                          boolean use_attack_indicator, boolean dot_enable,
                           int crosshair_size, int crosshair_gap,
                           int crosshair_width, int crosshair_rainbow_speed,
                           int crosshair_rotation,
+                          int dot_color, int dot_radius,
                           String choosen_item) {
             this.enable = enable;
 
@@ -239,6 +272,9 @@ public class Config {
             this.use_item_as_crosshair = use_item_as_crosshair;
             this.use_attack_indicator = use_attack_indicator;
             this.crosshair_rotation = crosshair_rotation;
+            this.dot_enable = dot_enable;
+            this.dot_color = dot_color;
+            this.dot_radius = dot_radius;
         }
 
         public static ConfigData getDefault() {
@@ -252,11 +288,14 @@ public class Config {
                     false,
                     false,
                     false,
+                    false,
                     7,
                     2,
                     2,
-                    500,
+                    750,
                     0,
+                    0xFF00FF00,
+                    10,
                     "potato");
         }
 

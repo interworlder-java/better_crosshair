@@ -1,4 +1,4 @@
-package rinat.better_crosshair.render;
+package rinat.better_crosshair.render.addons;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -46,17 +46,15 @@ public class RenderStandardCrosshair {
                 matrix4fStack.pushMatrix();
                 matrix4fStack.mul(context.getMatrices().peek().getPositionMatrix());
                 matrix4fStack.translate(context.getScaledWindowWidth() / 2, context.getScaledWindowHeight() / 2, 0.0f);
-                matrix4fStack.rotateX(-camera.getPitch() * ((float)Math.PI / 180));
-                matrix4fStack.rotateY(camera.getYaw() * ((float)Math.PI / 180));
+                matrix4fStack.rotateX(-camera.getPitch() * ((float) Math.PI / 180));
+                matrix4fStack.rotateY(camera.getYaw() * ((float) Math.PI / 180));
                 matrix4fStack.scale(-1.0f, -1.0f, -1.0f);
-                RenderSystem.applyModelViewMatrix();
                 RenderSystem.renderCrosshair(10);
                 matrix4fStack.popMatrix();
-                RenderSystem.applyModelViewMatrix();
             } else {
                 RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.ONE_MINUS_DST_COLOR, GlStateManager.DstFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
                 int i = 15;
-                context.drawGuiTexture(CROSSHAIR_TEXTURE, (context.getScaledWindowWidth() - 15) / 2, (context.getScaledWindowHeight() - 15) / 2, 15, 15);
+                context.drawGuiTexture(RenderLayer::getCrosshair, CROSSHAIR_TEXTURE, (context.getScaledWindowWidth() - 15) / 2, (context.getScaledWindowHeight() - 15) / 2, 15, 15);
                 if (client.options.getAttackIndicator().getValue() == AttackIndicator.CROSSHAIR) {
                     float f = client.player.getAttackCooldownProgress(0.0f);
                     boolean bl = false;
@@ -67,11 +65,11 @@ public class RenderStandardCrosshair {
                     int j = context.getScaledWindowHeight() / 2 - 7 + 16;
                     int k = context.getScaledWindowWidth() / 2 - 8;
                     if (bl) {
-                        context.drawGuiTexture(CROSSHAIR_ATTACK_INDICATOR_FULL_TEXTURE, k, j, 16, 16);
+                        context.drawGuiTexture(RenderLayer::getCrosshair, CROSSHAIR_ATTACK_INDICATOR_FULL_TEXTURE, k, j, 16, 16);
                     } else if (f < 1.0f) {
-                        int l = (int)(f * 17.0f);
-                        context.drawGuiTexture(CROSSHAIR_ATTACK_INDICATOR_BACKGROUND_TEXTURE, k, j, 16, 4);
-                        context.drawGuiTexture(CROSSHAIR_ATTACK_INDICATOR_PROGRESS_TEXTURE, 16, 4, 0, 0, k, j, l, 4);
+                        int l = (int) (f * 17.0f);
+                        context.drawGuiTexture(RenderLayer::getCrosshair, CROSSHAIR_ATTACK_INDICATOR_BACKGROUND_TEXTURE, k, j, 16, 4);
+                        context.drawGuiTexture(RenderLayer::getCrosshair, CROSSHAIR_ATTACK_INDICATOR_PROGRESS_TEXTURE, 16, 4, 0, 0, k, j, l, 4);
                     }
                 }
                 RenderSystem.defaultBlendFunc();
@@ -80,7 +78,7 @@ public class RenderStandardCrosshair {
         }
     }
 
-    public static boolean shouldRenderSpectatorCrosshair(@Nullable HitResult hitResult) {
+    private static boolean shouldRenderSpectatorCrosshair(HitResult hitResult) {
         if (hitResult == null) {
             return false;
         }
