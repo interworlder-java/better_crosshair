@@ -38,21 +38,36 @@ public class DrawCrosshair {
 
                         if (!Config.getConfigData().use_standard_crosshair) {
                             RenderItemCrosshair.renderItemCrosshair(client, drawContext);
-                        } else if (Config.getConfigData().use_attack_indicator) {
+                        }
+
+                        if (Config.getConfigData().use_standard_crosshair
+                                && Config.getConfigData().use_attack_indicator) {
                             RenderCrossCrosshair.renderCrossCrosshair(client, matrices, vertexConsumers);
                         }
 
-                        if (client.options.getAttackIndicator().getValue() == AttackIndicator.CROSSHAIR) {
-                            RenderSomeTypeOfAttackIndicator.renderSomeTypeOfAttackIndicator(client, matrices, vertexConsumers, drawContext);
-                        }
 
-                        if (!Config.getConfigData().use_attack_indicator) matrices.pop();
+                        matrices.pop();
+
+                        matrices.push();
+                        if (client.options.getAttackIndicator().getValue() == AttackIndicator.CROSSHAIR
+                                && Config.getConfigData().use_standard_crosshair) {
+                            RenderSomeTypeOfAttackIndicator.renderSomeTypeOfAttackIndicator(client, matrices, vertexConsumers, drawContext);
+                        } else if (client.options.getAttackIndicator().getValue() == AttackIndicator.CROSSHAIR
+                                && Config.getConfigData().use_attack_indicator) {
+                            RenderAttackIndicator.renderAttackIndicator(client, drawContext);
+                        }
+                        matrices.pop();
+
+
 
                         if (Config.getConfigData().dot_enable) {
+                            matrices.push();
                             float radius = (float) Config.getConfigData().dot_radius / 10;
                             int color = Config.getConfigData().dot_color;
 
                             AdditionRenderFunctions.drawCircle(matrices, centerX, centerY, radius, color);
+
+                            matrices.pop();
                         }
                     }
                 }

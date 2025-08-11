@@ -55,8 +55,6 @@ public class RenderSomeTypeOfAttackIndicator {
                         color, matrices, vertexConsumers);
             }
         } else {
-            matrices.pop();
-
             RenderAttackIndicator.renderAttackIndicator(client, drawContext);
         }
     }
