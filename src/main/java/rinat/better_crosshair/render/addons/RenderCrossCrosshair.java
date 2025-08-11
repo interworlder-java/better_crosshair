@@ -16,7 +16,11 @@ public class RenderCrossCrosshair {
         if (Config.getConfigData().crosshair_rainbow) {
             color = AdditionRenderFunctions.getRainbowColor();
         } else {
-            color = Config.getConfigData().crosshair_color;
+            if (client.targetedEntity != null && client.targetedEntity.isAlive()) {
+                color = 0xEEFF0000;
+            } else {
+                color = Config.getConfigData().crosshair_color;
+            }
         }
 
         int size = Config.getConfigData().crosshair_size + 2;

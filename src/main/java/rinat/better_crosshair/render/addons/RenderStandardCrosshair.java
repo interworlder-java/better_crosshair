@@ -17,7 +17,6 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.GameMode;
-import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4fStack;
 
 public class RenderStandardCrosshair {
