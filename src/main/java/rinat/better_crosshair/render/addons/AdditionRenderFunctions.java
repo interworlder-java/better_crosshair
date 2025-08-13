@@ -1,7 +1,7 @@
 package rinat.better_crosshair.render.addons;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.RotationAxis;
@@ -38,32 +38,10 @@ public class AdditionRenderFunctions {
         vertexConsumer.vertex(matrix4f, x2, y1, (float)z).color(color);
     }
 
-    public static void drawCircle(MatrixStack matrices, float centerX, float centerY, double radius, int color) {
-        Matrix4f mat = matrices.peek().getPositionMatrix();
-        Tessellator tes = Tessellator.getInstance();
-
-        BufferBuilder buf = tes.begin(VertexFormat.DrawMode.TRIANGLE_FAN, VertexFormats.POSITION_COLOR);
-        buf.vertex(mat, centerX, centerY, 0).color(color);
-
-        int i;
-        for (i = 0; i < 360; i += 2){
-            float x = (float) (Math.cos(Math.toRadians(i)) * radius + centerX);
-            float y = (float) (Math.sin(Math.toRadians(i)) * radius + centerY);
-            buf.vertex(mat, x, y, 0).color(color);
-        }
-
-        RenderSystem.disableCull();
-        RenderSystem.enableBlend();
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.setShader(GameRenderer::getPositionColorProgram);
-        RenderSystem.setShaderColor(1, 1, 1, 1);
-
-        BufferRenderer.drawWithGlobalProgram(buf.end());
-
-        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
-        RenderSystem.enableCull();
-        RenderSystem.disableBlend();
+    public static void drawCircle(MatrixStack matrices, float centerX, float centerY, double radius, int color, VertexConsumerProvider vertexConsumers) {
+        fill(RenderLayer.getGui(), (float) (centerX - radius), (float) (centerY - radius), (float) (centerX + radius), (float) (centerY + radius), color, matrices, vertexConsumers);
     }
+
 
     public static void rotateCrosshair(MinecraftClient client, MatrixStack matrices) {
         int centerY = client.getWindow().getScaledHeight() / 2;
@@ -75,10 +53,6 @@ public class AdditionRenderFunctions {
         matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(rotation));
         matrices.translate(-centerX, -centerY, 5);
     }
-
-
-
-
     public static void spinCrosshair(MinecraftClient client, MatrixStack matrices) {
         int centerY = client.getWindow().getScaledHeight() / 2;
         int centerX = client.getWindow().getScaledWidth() / 2;

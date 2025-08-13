@@ -15,7 +15,13 @@ public class RenderSomeTypeOfAttackIndicator {
         int centerX = screenWidth / 2;
         int centerY = screenHeight / 2;
 
-        if (!Config.getConfigData().use_attack_indicator) {
+        if (!Config.getConfigData().use_attack_indicator && Config.getConfigData().use_standard_crosshair) {
+            matrices.push();
+
+            AdditionRenderFunctions.rotateCrosshair(client, matrices);
+
+            AdditionRenderFunctions.spinCrosshair(client, matrices);
+
             int color;
 
             if (Config.getConfigData().crosshair_rainbow) {
@@ -54,9 +60,9 @@ public class RenderSomeTypeOfAttackIndicator {
                         centerX + ((float) width / 2), centerY + (gap + (2 * size)) - animation,
                         color, matrices, vertexConsumers);
             }
-        } else {
-            matrices.pop();
 
+            matrices.pop();
+        } else {
             RenderAttackIndicator.renderAttackIndicator(client, drawContext);
         }
     }

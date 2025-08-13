@@ -99,7 +99,7 @@ public class Config {
                             Text.translatable("config.better_crosshair.use_cross_crosshair"),
                             config_data.use_standard_crosshair
                     )
-                    .setDefaultValue(false)
+                    .setDefaultValue(true)
                     .setSaveConsumer(newValue -> config_data.use_standard_crosshair = newValue)
                     .build()
         );

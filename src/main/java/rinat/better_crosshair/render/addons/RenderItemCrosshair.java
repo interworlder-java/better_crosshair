@@ -30,7 +30,7 @@ public class RenderItemCrosshair {
         }
         // Make sure the correct shader for your chosen vertex format is set!
         // You can find all the shaders in the ShaderProgramKeys class.
-        RenderSystem.setShader(GameRenderer::getPositionColorProgram);
+        // RenderSystem.setShader(GameRenderer::getPositionColorProgram);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
     }
 }
