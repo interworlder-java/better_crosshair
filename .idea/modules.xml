@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/better_crosshair.main.iml" filepath="$PROJECT_DIR$/.idea/modules/better_crosshair.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/better_crosshair.test.iml" filepath="$PROJECT_DIR$/.idea/modules/better_crosshair.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/better_crosshair.iml" filepath="$PROJECT_DIR$/.idea/better_crosshair.iml" />
     </modules>
   </component>
 </project>
