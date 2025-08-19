@@ -1,7 +1,8 @@
 package rinat.better_crosshair.render.addons;
 
+import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.RotationAxis;
@@ -32,14 +33,32 @@ public class AdditionRenderFunctions {
         }
 
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(layer);
+
         vertexConsumer.vertex(matrix4f, x1, y1, (float)z).color(color);
         vertexConsumer.vertex(matrix4f, x1, y2, (float)z).color(color);
         vertexConsumer.vertex(matrix4f, x2, y2, (float)z).color(color);
         vertexConsumer.vertex(matrix4f, x2, y1, (float)z).color(color);
     }
 
-    public static void drawCircle(MatrixStack matrices, float centerX, float centerY, double radius, int color, VertexConsumerProvider vertexConsumers) {
-        fill(RenderLayer.getGui(), (float) (centerX - radius), (float) (centerY - radius), (float) (centerX + radius), (float) (centerY + radius), color, matrices, vertexConsumers);
+    public static void drawCircle(float radius, int centerX, int centerY, int color,
+                                  MatrixStack matrices, VertexConsumerProvider vertexConsumerProvider) {
+        Matrix4f mat = matrices.peek().getPositionMatrix();
+
+        VertexConsumer buf =
+                vertexConsumerProvider.getBuffer(RenderLayer.of("gui_triangle_fan", 786432,
+                        RenderPipelines.DEBUG_TRIANGLE_FAN, RenderLayer.MultiPhaseParameters.builder().build(false)));
+
+        buf.vertex(mat, centerX, centerY, 0).color(color);
+
+        int i;
+        for (i = 0; i < 360; i += 1) {
+            float x = (float) (Math.cos(Math.toRadians(i)) * radius + centerX);
+            float y = (float) (Math.sin(Math.toRadians(i)) * radius + centerY);
+
+            buf.vertex(mat, x, y, 0).color(color);
+        }
+
+
     }
 
 

@@ -51,7 +51,7 @@ public class DrawCrosshair {
                         float radius = (float) Config.getConfigData().dot_radius / 10;
                         int color = Config.getConfigData().dot_color;
 
-                        AdditionRenderFunctions.drawCircle(matrices, centerX, centerY, radius, color, vertexConsumers);
+                        AdditionRenderFunctions.drawCircle(radius, centerX, centerY, color, matrices, vertexConsumers);
                     }
                 }
             }
