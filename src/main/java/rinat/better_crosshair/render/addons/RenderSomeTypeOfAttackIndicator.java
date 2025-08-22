@@ -28,31 +28,55 @@ public class RenderSomeTypeOfAttackIndicator {
             int gap = Config.getConfigData().crosshair_gap;
             int width = Config.getConfigData().crosshair_width;
 
+            int can_attack_color = Config.getConfigData().crosshair_attack_color;
+            boolean use_can_attack_color = Config.getConfigData().use_different_color_then_can_attack_enemy;
+
             assert client.player != null;
 
             float f = client.player.getAttackCooldownProgress(0.0F);
 
-
             if (f >= 1.0f) {
-                AdditionRenderFunctions.fill(RenderLayer.getGuiOverlay(), centerX - size, centerY + ((float) width / 2), centerX - gap, centerY - ((float) width / 2), color, matrices, vertexConsumers);
-                AdditionRenderFunctions.fill(RenderLayer.getGuiOverlay(), centerX + size, centerY - ((float) width / 2), centerX + gap, centerY + ((float) width / 2), color, matrices, vertexConsumers);
-                AdditionRenderFunctions.fill(RenderLayer.getGuiOverlay(), centerX + ((float) width / 2), centerY - size, centerX - ((float) width / 2), centerY - gap, color, matrices, vertexConsumers);
-                AdditionRenderFunctions.fill(RenderLayer.getGuiOverlay(), centerX - ((float) width / 2), centerY + size, centerX + ((float) width / 2), centerY + gap, color, matrices, vertexConsumers);
+                if (client.targetedEntity != null && client.targetedEntity.isAlive() && use_can_attack_color) {
+                    AdditionRenderFunctions.fill(RenderLayer.getGuiOverlay(), centerX - size, centerY + ((float) width / 2), centerX - gap, centerY - ((float) width / 2), can_attack_color, matrices, vertexConsumers);
+                    AdditionRenderFunctions.fill(RenderLayer.getGuiOverlay(), centerX + size, centerY - ((float) width / 2), centerX + gap, centerY + ((float) width / 2), can_attack_color, matrices, vertexConsumers);
+                    AdditionRenderFunctions.fill(RenderLayer.getGuiOverlay(), centerX + ((float) width / 2), centerY - size, centerX - ((float) width / 2), centerY - gap, can_attack_color, matrices, vertexConsumers);
+                    AdditionRenderFunctions.fill(RenderLayer.getGuiOverlay(), centerX - ((float) width / 2), centerY + size, centerX + ((float) width / 2), centerY + gap, can_attack_color, matrices, vertexConsumers);
+                } else {
+                    AdditionRenderFunctions.fill(RenderLayer.getGuiOverlay(), centerX - size, centerY + ((float) width / 2), centerX - gap, centerY - ((float) width / 2), color, matrices, vertexConsumers);
+                    AdditionRenderFunctions.fill(RenderLayer.getGuiOverlay(), centerX + size, centerY - ((float) width / 2), centerX + gap, centerY + ((float) width / 2), color, matrices, vertexConsumers);
+                    AdditionRenderFunctions.fill(RenderLayer.getGuiOverlay(), centerX + ((float) width / 2), centerY - size, centerX - ((float) width / 2), centerY - gap, color, matrices, vertexConsumers);
+                    AdditionRenderFunctions.fill(RenderLayer.getGuiOverlay(), centerX - ((float) width / 2), centerY + size, centerX + ((float) width / 2), centerY + gap, color, matrices, vertexConsumers);
+                }
             } else {
                 float animation = (f + 1) * size; // smooth movement range from 0 to size
 
-                AdditionRenderFunctions.fill(RenderLayer.getGuiOverlay(), centerX - (size + (2 * size)) + animation, centerY + ((float) width / 2),
-                        centerX - (gap + (2 * size)) + animation, centerY - ((float) width / 2),
-                        color, matrices, vertexConsumers);
-                AdditionRenderFunctions.fill(RenderLayer.getGuiOverlay(), centerX + (size + (2 * size)) - animation, centerY - ((float) width / 2),
-                        centerX + (gap + (2 * size)) - animation, centerY + ((float) width / 2),
-                        color, matrices, vertexConsumers);
-                AdditionRenderFunctions.fill(RenderLayer.getGuiOverlay(), centerX + ((float) width / 2), centerY - (size + (2 * size)) + animation,
-                        centerX - ((float) width / 2), centerY - (gap + (2 * size)) + animation,
-                        color, matrices, vertexConsumers);
-                AdditionRenderFunctions.fill(RenderLayer.getGuiOverlay(), centerX - ((float) width / 2), centerY + (size + (2 * size)) - animation,
-                        centerX + ((float) width / 2), centerY + (gap + (2 * size)) - animation,
-                        color, matrices, vertexConsumers);
+                if (client.targetedEntity != null && client.targetedEntity.isAlive() && use_can_attack_color) {
+                    AdditionRenderFunctions.fill(RenderLayer.getGuiOverlay(), centerX - (size + (2 * size)) + animation, centerY + ((float) width / 2),
+                            centerX - (gap + (2 * size)) + animation, centerY - ((float) width / 2),
+                            can_attack_color, matrices, vertexConsumers);
+                    AdditionRenderFunctions.fill(RenderLayer.getGuiOverlay(), centerX + (size + (2 * size)) - animation, centerY - ((float) width / 2),
+                            centerX + (gap + (2 * size)) - animation, centerY + ((float) width / 2),
+                            can_attack_color, matrices, vertexConsumers);
+                    AdditionRenderFunctions.fill(RenderLayer.getGuiOverlay(), centerX + ((float) width / 2), centerY - (size + (2 * size)) + animation,
+                            centerX - ((float) width / 2), centerY - (gap + (2 * size)) + animation,
+                            can_attack_color, matrices, vertexConsumers);
+                    AdditionRenderFunctions.fill(RenderLayer.getGuiOverlay(), centerX - ((float) width / 2), centerY + (size + (2 * size)) - animation,
+                            centerX + ((float) width / 2), centerY + (gap + (2 * size)) - animation,
+                            can_attack_color, matrices, vertexConsumers);
+                } else {
+                    AdditionRenderFunctions.fill(RenderLayer.getGuiOverlay(), centerX - (size + (2 * size)) + animation, centerY + ((float) width / 2),
+                            centerX - (gap + (2 * size)) + animation, centerY - ((float) width / 2),
+                            color, matrices, vertexConsumers);
+                    AdditionRenderFunctions.fill(RenderLayer.getGuiOverlay(), centerX + (size + (2 * size)) - animation, centerY - ((float) width / 2),
+                            centerX + (gap + (2 * size)) - animation, centerY + ((float) width / 2),
+                            color, matrices, vertexConsumers);
+                    AdditionRenderFunctions.fill(RenderLayer.getGuiOverlay(), centerX + ((float) width / 2), centerY - (size + (2 * size)) + animation,
+                            centerX - ((float) width / 2), centerY - (gap + (2 * size)) + animation,
+                            color, matrices, vertexConsumers);
+                    AdditionRenderFunctions.fill(RenderLayer.getGuiOverlay(), centerX - ((float) width / 2), centerY + (size + (2 * size)) - animation,
+                            centerX + ((float) width / 2), centerY + (gap + (2 * size)) - animation,
+                            color, matrices, vertexConsumers);
+                }
             }
         } else {
             RenderAttackIndicator.renderAttackIndicator(client, drawContext);

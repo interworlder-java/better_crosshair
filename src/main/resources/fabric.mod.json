@@ -7,7 +7,7 @@
   "authors": [],
   "contact": {},
   "license": "unlicense",
-  "icon": "icon.png",
+  "icon": "assets/better_crosshair/icon.png",
   "environment": "client",
   "entrypoints": {
     "client": [
