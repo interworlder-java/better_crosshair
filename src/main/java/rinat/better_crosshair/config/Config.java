@@ -59,31 +59,31 @@ public class Config {
         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
 
         dot.addEntry(entryBuilder.startBooleanToggle(
-                        Text.translatable("config.better_crosshair.dot_enabled"),
-                        config_data.dot_enable
-                    )
-                    .setDefaultValue(false)
-                    .setSaveConsumer(newValue -> config_data.dot_enable = newValue)
-                    .build()
+                                Text.translatable("config.better_crosshair.dot_enabled"),
+                                config_data.dot_enable
+                        )
+                        .setDefaultValue(false)
+                        .setSaveConsumer(newValue -> config_data.dot_enable = newValue)
+                        .build()
         );
 
         dot.addEntry(entryBuilder.startIntSlider(
-                        Text.translatable("config.better_crosshair.dot_radius"),
-                        config_data.dot_radius,
-                        1, 30
-                    )
-                .setDefaultValue(8)
-                .setSaveConsumer(newValue -> config_data.dot_radius = newValue)
-                .build()
+                                Text.translatable("config.better_crosshair.dot_radius"),
+                                config_data.dot_radius,
+                                1, 30
+                        )
+                        .setDefaultValue(8)
+                        .setSaveConsumer(newValue -> config_data.dot_radius = newValue)
+                        .build()
         );
 
         dot.addEntry(entryBuilder.startAlphaColorField(
-                            Text.translatable("config.better_crosshair.dot_color"),
-                            config_data.dot_color
-                    )
-                    .setDefaultValue(-1)
-                    .setSaveConsumer(newValue -> config_data.dot_color = newValue)
-                    .build()
+                                Text.translatable("config.better_crosshair.dot_color"),
+                                config_data.dot_color
+                        )
+                        .setDefaultValue(-1)
+                        .setSaveConsumer(newValue -> config_data.dot_color = newValue)
+                        .build()
         );
 
         general.addEntry(entryBuilder.startBooleanToggle(
@@ -96,12 +96,12 @@ public class Config {
         );
 
         fun.addEntry(entryBuilder.startBooleanToggle(
-                            Text.translatable("config.better_crosshair.use_cross_crosshair"),
-                            config_data.use_standard_crosshair
-                    )
-                    .setDefaultValue(true)
-                    .setSaveConsumer(newValue -> config_data.use_standard_crosshair = newValue)
-                    .build()
+                                Text.translatable("config.better_crosshair.use_cross_crosshair"),
+                                config_data.use_standard_crosshair
+                        )
+                        .setDefaultValue(true)
+                        .setSaveConsumer(newValue -> config_data.use_standard_crosshair = newValue)
+                        .build()
         );
 
         fun.addEntry(entryBuilder.startBooleanToggle(
@@ -123,8 +123,8 @@ public class Config {
         );
 
         fun.addEntry(entryBuilder.startStrField(
-                            Text.translatable("config.better_crosshair.choose_item"),
-                            config_data.choosen_item
+                                Text.translatable("config.better_crosshair.choose_item"),
+                                config_data.choosen_item
                         )
                         .setDefaultValue("potato")
                         .setSaveConsumer(newValue -> config_data.choosen_item = newValue)
@@ -151,9 +151,9 @@ public class Config {
         );
 
         size.addEntry(entryBuilder.startIntSlider(
-                            Text.translatable("config.better_crosshair.crosshair_size"),
-                            config_data.crosshair_size,
-                            2, 50
+                                Text.translatable("config.better_crosshair.crosshair_size"),
+                                config_data.crosshair_size,
+                                2, 50
                         )
                         .setDefaultValue(7)
                         .setSaveConsumer(newValue -> config_data.crosshair_size = newValue)
@@ -189,7 +189,7 @@ public class Config {
                         .setSaveConsumer(newValue -> config_data.crosshair_rotation = newValue)
                         .build()
         );
-        
+
         color.addEntry(entryBuilder.startAlphaColorField(
                                 Text.translatable("config.better_crosshair.crosshair_color"),
                                 config_data.crosshair_color
@@ -218,6 +218,24 @@ public class Config {
                         .build()
         );
 
+        color.addEntry(entryBuilder.startBooleanToggle(
+                                Text.translatable("config.better_crosshair.use_different_color_then_can_attack_enemy"),
+                                config_data.use_different_color_then_can_attack_enemy
+                        )
+                        .setDefaultValue(true)
+                        .setSaveConsumer(newValue -> config_data.use_different_color_then_can_attack_enemy = newValue)
+                        .build()
+        );
+
+        color.addEntry(entryBuilder.startAlphaColorField(
+                                Text.translatable("config.better_crosshair.crosshair_attack_color"),
+                                config_data.crosshair_attack_color
+                        )
+                        .setDefaultValue(0xFFFF0000)
+                        .setSaveConsumer(newValue -> config_data.crosshair_attack_color = newValue)
+                        .build()
+        );
+
         builder.setSavingRunnable(config_data::save);
 
         return builder.build();
@@ -228,6 +246,7 @@ public class Config {
 
         public int from_center_to_ai;
         public int crosshair_color;
+        public int crosshair_attack_color;
         public int crosshair_size;
         public int crosshair_gap;
         public int crosshair_width;
@@ -240,6 +259,7 @@ public class Config {
         public boolean use_attack_indicator;
         public boolean crosshair_rainbow;
         public boolean dot_enable;
+        public boolean use_different_color_then_can_attack_enemy;
         public int dot_color;
         public int dot_radius;
 
@@ -254,13 +274,15 @@ public class Config {
                           boolean use_attack_indicator, boolean dot_enable,
                           int crosshair_size, int crosshair_gap,
                           int crosshair_width, int crosshair_rainbow_speed,
-                          int crosshair_rotation,
+                          int crosshair_rotation, int crosshair_attack_color,
                           int dot_color, int dot_radius,
+                          boolean use_different_color_then_can_attack_enemy,
                           String choosen_item) {
             this.enable = enable;
 
             this.from_center_to_ai = from_center_to_ai;
             this.crosshair_color = crosshair_color;
+            this.crosshair_attack_color = crosshair_attack_color;
             this.use_standard_crosshair = use_standard_crosshair;
             this.crosshair_size = crosshair_size;
             this.crosshair_gap = crosshair_gap;
@@ -272,6 +294,7 @@ public class Config {
             this.use_item_as_crosshair = use_item_as_crosshair;
             this.use_attack_indicator = use_attack_indicator;
             this.crosshair_rotation = crosshair_rotation;
+            this.use_different_color_then_can_attack_enemy = use_different_color_then_can_attack_enemy;
             this.dot_enable = dot_enable;
             this.dot_color = dot_color;
             this.dot_radius = dot_radius;
@@ -294,8 +317,10 @@ public class Config {
                     2,
                     750,
                     0,
+                    0xFFFF0000,
                     0xFF00FF00,
                     10,
+                    true,
                     "potato");
         }
 
